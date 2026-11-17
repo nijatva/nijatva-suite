@@ -8,7 +8,7 @@ The app index, release downloads and the self-hosted F-Droid style repository in
 
 This is the distribution channel. It replaces the Play Store role for the suite.
 
-Part of the [Nijatva](https://vasudev-work.github.io) suite by **DEVIRA**.
+Part of the [Nijatva](https://nijatva.github.io) suite.
 
 ## Status
 
