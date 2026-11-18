@@ -53,7 +53,7 @@ from pathlib import Path
 from typing import Any
 
 API = "https://api.github.com"
-SEMVER = re.compile(r"^v?(\d+)\.(\d+)\.(\d+)$")
+SEMVER = re.compile(r"^v?(\d+)\.(\d+)(?:\.(\d+))?$")   # v1.5 and v1.5.0 are both version tags
 USER_AGENT = "Nijatva-Index-Generator/1"
 
 # ---------------------------------------------------------------------------
@@ -195,8 +195,15 @@ def read_badging(apk: Path, aapt2: str) -> dict[str, Any]:
     return info
 
 
-def read_cert(apk: Path, apksigner: str) -> dict[str, str]:
-    out = run([apksigner, "verify", "--print-certs", str(apk)])
+def read_cert(apk: Path, apksigner: str, min_sdk: int | None = None) -> dict[str, str]:
+    # Verify against the APK's own minSdk. Without it apksigner checks API 9-17,
+    # where a SHA-256 v1 (JAR) signature is legitimately unsupported - that is not
+    # a broken APK, it is a verification run with the wrong floor.
+    cmd = [apksigner, "verify", "--print-certs"]
+    if min_sdk:
+        cmd += ["--min-sdk-version", str(int(min_sdk))]
+    cmd.append(str(apk))
+    out = run(cmd)
     sha256 = re.search(r"certificate SHA-256 digest: ([0-9a-fA-F]+)", out)
     if not sha256:
         raise GateError(f"{apk.name}: unsigned or unreadable signing certificate")
@@ -451,7 +458,7 @@ def main(argv: list[str] | None = None) -> int:
 
                 try:
                     meta = read_badging(local, aapt2)
-                    cert = read_cert(local, apksigner)
+                    cert = read_cert(local, apksigner, meta.get("minSdkVersion"))
                 except GateError as e:
                     violations.append(f"{repo} {tag}: {e}")
                     continue
