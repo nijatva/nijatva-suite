@@ -1,0 +1,69 @@
+{
+  "apps": [
+    {
+      "categories": [],
+      "issueTracker": "https://github.com/nijatva/nijatva-photo-editor/issues",
+      "license": "Apache-2.0",
+      "localized": {
+        "en-US": {
+          "description": "",
+          "name": "Photo Editor",
+          "summary": ""
+        }
+      },
+      "name": "Photo Editor",
+      "packageName": "com.nijatva.photo.editor",
+      "sourceCode": "https://github.com/nijatva/nijatva-photo-editor",
+      "suggestedVersionCode": 6,
+      "suggestedVersionName": "1.5.0",
+      "summary": ""
+    }
+  ],
+  "packages": {
+    "com.nijatva.photo.editor": [
+      {
+        "added": 1794932118,
+        "apkName": "com.nijatva.photo.editor_6.apk",
+        "apkUrl": "https://github.com/nijatva/nijatva-photo-editor/releases/download/v1.5.0/Nijatva-Editor-1.5.0.apk",
+        "hash": "bce46bb29315e5b00c01b99c93de6f26880457374a5885d29673b2ea565f401c",
+        "hashType": "sha256",
+        "minSdkVersion": 0,
+        "nativecode": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "packageName": "com.nijatva.photo.editor",
+        "sig": "32ef7fb704c1ad0666a0177dd69d81167797963d45297e1b06523bedf1d5927d",
+        "signer": "CN=Vasudev Dangaya, O=Nijatva Photo Editor, C=IN",
+        "size": 6518450,
+        "targetSdkVersion": 35,
+        "uses-permission": [
+          {
+            "name": "android.permission.READ_MEDIA_IMAGES"
+          },
+          {
+            "name": "android.permission.READ_EXTERNAL_STORAGE"
+          },
+          {
+            "name": "android.permission.WRITE_EXTERNAL_STORAGE"
+          },
+          {
+            "name": "com.nijatva.photo.editor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+          }
+        ],
+        "versionCode": 6,
+        "versionName": "1.5.0"
+      }
+    ]
+  },
+  "repo": {
+    "address": "https://nijatva.github.io/nijatva-suite",
+    "description": "Local-first Android apps. No Google Play Services.",
+    "maxAge": 0,
+    "name": "Nijatva",
+    "timestamp": 1794993677554,
+    "version": 1
+  }
+}
