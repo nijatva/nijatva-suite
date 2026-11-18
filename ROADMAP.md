@@ -17,7 +17,9 @@ the claims that are currently wrong so they do not come back.
 
 App repositories that exist: browser, browser-mini-x, notes, video-player,
 video-player-multiplatform, photos, photo-editor, gallery, camera, music-player,
-file, drive, dialer, contacts, messages. **15 of the 24 planned apps.**
+file, drive, dialer, contacts, messages. Fifteen of the 28 apps in
+`apps.json` — four of them (photos, video-player, photo-editor, browser-mini-x)
+were built outside the original 24-app plan.
 
 ### F1 `nijatva-core`
 
@@ -106,25 +108,21 @@ plus the build order in §4.
 
 ### 2.4 `nijatva-design` README says "thirty apps", the description says "twenty-four"
 
-`nijatva-core/tools/apps.json` is the source of truth: **24 apps**. Fix the
-design README line to "twenty-four".
+`nijatva-core/tools/apps.json` is the source of truth: **28 apps**, 14 with a
+repository. Fix the design README line to "twenty-eight".
 
-### 2.5 `apps.json` does not know about four apps that exist, and mis-files one
+### 2.5 `apps.json` did not know about four apps that exist
 
-`nijatva-core/tools/apps.json` holds 24 planned apps, 10 with a `repo` value —
-which is correct, 14 planned apps genuinely have no repository yet. The problem
-is the other direction:
+`nijatva-core/tools/apps.json` listed 24 planned apps, 10 with a `repo` value.
+Four app repositories existed with no entry at all: `nijatva-photos`,
+`nijatva-video-player`, `nijatva-photo-editor` and `nijatva-browser-mini-x`. An
+index generated from that file would have dropped four built apps without saying
+so.
 
-- **Four existing app repositories have no entry at all.** There is no `Photos`
-  or `Video` row in the file, and nothing for `nijatva-photo-editor` or
-  `nijatva-browser-mini-x`. An index generated from this file would silently
-  drop four apps that are already built.
-- **`Vault` points at `nijatva-drive`**, which is a TypeScript project, not the
-  Android vault app. A wrong link is worse than a missing one.
-
-This file feeds `generate_devinfo.py` today and the store index tomorrow, so it
-must be reconciled with the organisation's repository list before the index is
-generated.
+**Fixed.** The manifest now carries 28 apps, 14 with a repository, with the real
+package names read from each app's build file. `SignatureDevInfo.java` was
+regenerated from it, so the figures on the Developer screen finally match the
+suite (22 repositories, 28 apps, 14 with code).
 
 ### 2.6 `nijatva-browser` commits a binary
 
@@ -159,6 +157,24 @@ artifacts, because 15 repositories cannot share a local path and CI has no
 `mavenLocal`. Keep the project-dependency rule, but read it as what it says —
 "an app must not depend on a sibling app module" — not as the delivery route for
 core.
+
+---
+
+### 2.10 One app in the suite is not native, and that is a decision to make
+
+`Vault` maps to `nijatva-drive`, which is a React Native app (Expo + TypeScript),
+not a Kotlin/Compose one. That mapping is correct — it is the vault — but it has
+consequences the rest of this document assumes away:
+
+- it cannot consume `:signature`, `core:design` or any other core module, so it
+  will never look like the rest of the suite unless it is rebuilt;
+- `no-gms-check` cannot reason about its dependency tree the way it does for a
+  Gradle Android app;
+- its APK comes from the Expo build pipeline, so the index gate in `tools/` is
+  the only place its promises are verified.
+
+Either keep it and accept the different look, or put it on the list to rewrite
+natively in Phase 3. Do not leave it as an unexamined exception.
 
 ---
 

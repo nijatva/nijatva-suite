@@ -2,8 +2,9 @@
 
 Local-first. Zero tracking. No Google Play Services.
 
-The suite is four foundation modules and 24 Android apps. Everything below is the
-agreed structure as of the Phase 0 / Phase 1 build.
+The suite is four foundation modules and 28 apps. Everything below is the agreed
+structure; §3 carries the status verified against the repositories on
+18 November 2026.
 
 ## 1. Layers
 
@@ -68,16 +69,22 @@ Two rules are visible in the skeleton itself:
 
 ## 3. Roadmap and real status
 
-| Phase | Scope | Repos | Apps | Target | Status |
-|---|---|---|---|---|---|
-| 0 | Foundation base | 4 | nijatva-core, no-gms-check, nijatva-design, nijatva-suite | 2-3 weeks | Repos created, README only |
-| 1 | Small apps | 5 | Calc, Clock, Notes, QR Scanner, Files | 4-6 weeks | 4 of 5 repos created |
-| 2 | Media and utility | 6 | Gallery, Music, Recorder, PDF Viewer, Device Info, Weather | 6-8 weeks | Not started |
-| 3 | Phone roles | 9 | Dialer, Contacts, SMS, Calendar, Camera, Expenses, Tasks, RSS, Vault | 8-10 weeks | Not started |
-| 4 | Flagship | 4 | Keyboard, Launcher, Browser, App Manager | 10-12 weeks | Browser built, 182 files |
+Verified by reading the repositories on 18 November 2026. `ROADMAP.md` carries
+the detail and the corrections; this table is the summary.
 
-Totals: 24 apps, 4 foundation repos, 28 repositories. 7 easy, 12 medium,
-5 hard. Timeline assumes part-time work and is a floor, not a promise.
+| Phase | Scope | Apps | Target | Status |
+|---|---|---|---|---|
+| 0 | Foundation | nijatva-core, no-gms-check, nijatva-design, nijatva-suite | 2-3 weeks | Partly built. `:signature` ships and 2 apps use it; the plugin exists and no app applies it; 30 icon sets; the suite has no index yet |
+| 1 | Small apps | Calc, Clock, Notes, QR Scanner, Files | 4-6 weeks | Notes and Files have repositories; Calc, Clock and QR do not |
+| 2 | Media and utility | Gallery, Music, Recorder, PDF Viewer, Device Info, Weather | 6-8 weeks | Gallery and Music have repositories; the other four do not |
+| 3 | Phone roles | Dialer, Contacts, Messages, Calendar, Camera, Expenses, Tasks, RSS, Vault | 8-10 weeks | Dialer, Contacts, Messages, Camera and Vault (React Native) have repositories; the rest do not |
+| 4 | Flagship | Keyboard, Launcher, Browser, App Manager | 10-12 weeks | Browser and Mini X are built; Keyboard, Launcher and App Manager have no repository |
+
+15 app repositories exist, plus the 4 foundation repositories, the website, the
+web store and the organisation's `.github`: 22 repositories. Four apps were
+built outside the original 24-app plan — Photos, Video Player, Photo Editor and
+Mini X — and are in the manifest now. Timeline assumes part-time work and is a
+floor, not a promise.
 
 ## 4. No-GMS / BharOS compliance
 
@@ -100,6 +107,9 @@ Recorded so the same two mistakes do not come back:
 - **`nijatva-core` does not sync anything.** The draft listed "Compose UI + SAF +
   Sync". There is no sync in a local-first suite. Core carries the design system,
   SAF helpers, a TTS wrapper, encrypted preferences, and local backup/restore.
+- **One app is not native.** Vault is `nijatva-drive`, a React Native (Expo)
+  app. It cannot use the core modules and will not look like the rest of the
+  suite. Keep that as a stated exception or schedule a native rewrite.
 - **AdMob is advertising, not analytics.** The draft grouped "AdMob /
   Crashlytics" under one heading. They are two separate bans: no ad SDK and no
   analytics SDK, and the second is the one people forget when they add a "crash

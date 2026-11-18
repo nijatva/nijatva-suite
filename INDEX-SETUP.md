@@ -82,11 +82,9 @@ becomes a rumour.
 
 ## Before the first run
 
-`tools/apps.json` in `nijatva-core` must be reconciled first. As of 18 November
-2026 it has no entry at all for four existing apps (photos, video-player,
-photo-editor, browser-mini-x) and maps `Vault` to `nijatva-drive`, which is a
-TypeScript project. An index built from it would drop four apps and ship one
-wrong link.
+`tools/apps.json` in `nijatva-core` now lists all 28 apps, 14 with a repository,
+with package names read from each app's build file. If an app is added later,
+add it there first — the generator only indexes what the manifest names.
 
 ## Running it locally
 
