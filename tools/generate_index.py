@@ -175,8 +175,11 @@ def read_badging(apk: Path, aapt2: str) -> dict[str, Any]:
 
     # Anchored to the start of a line: "targetSdkVersion:'35'" also contains
     # "sdkVersion:'35'", so an unanchored search can report the wrong floor.
-    for key, field in (("sdkVersion", "minSdkVersion"), ("targetSdkVersion", "targetSdkVersion")):
-        mm = re.search(rf"^{key}:'(\d+)'", out, re.MULTILINE)
+    # aapt and aapt2 do not agree on the name of the first one, so accept both.
+    patterns = ((r"^(?:sdkVersion|minSdkVersion):'(\d+)'", "minSdkVersion"),
+                (r"^targetSdkVersion:'(\d+)'", "targetSdkVersion"))
+    for pattern, field in patterns:
+        mm = re.search(pattern, out, re.MULTILINE)
         if mm:
             info[field] = int(mm.group(1))
 
@@ -467,7 +470,9 @@ def main(argv: list[str] | None = None) -> int:
                                           release["published_at"][:19], "%Y-%m-%dT%H:%M:%S"))))
                 packages.setdefault(meta["packageName"], []).append(entry)
                 app_meta.setdefault(meta["packageName"], app)
-                log(f"  ✓ {meta['versionName']} ({meta['versionCode']}) {digest[:12]}…")
+                log(f"  ✓ {meta['versionName']} ({meta['versionCode']}) "
+                    f"sdk {meta.get('minSdkVersion', '?')}–{meta.get('targetSdkVersion', '?')} "
+                    f"{digest[:12]}…")
 
         if violations:
             log("")
