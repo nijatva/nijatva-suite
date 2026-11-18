@@ -173,8 +173,10 @@ def read_badging(apk: Path, aapt2: str) -> dict[str, Any]:
     info["versionCode"] = int(m.group(2))
     info["versionName"] = m.group(3) or str(info["versionCode"])
 
+    # Anchored to the start of a line: "targetSdkVersion:'35'" also contains
+    # "sdkVersion:'35'", so an unanchored search can report the wrong floor.
     for key, field in (("sdkVersion", "minSdkVersion"), ("targetSdkVersion", "targetSdkVersion")):
-        mm = re.search(rf"{key}:'(\d+)'", out)
+        mm = re.search(rf"^{key}:'(\d+)'", out, re.MULTILINE)
         if mm:
             info[field] = int(mm.group(1))
 
