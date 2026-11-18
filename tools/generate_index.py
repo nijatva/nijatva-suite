@@ -465,6 +465,7 @@ def main(argv: list[str] | None = None) -> int:
             log(f"{len(violations)} artifact(s) refused:")
             for v in violations:
                 log(f"  • {v}")
+                print(f"::warning::index refused: {v}")
             if args.dry_run:
                 return 1
 
@@ -482,8 +483,16 @@ def main(argv: list[str] | None = None) -> int:
             log(f"dry run: {len(packages)} package(s) would be indexed")
             return 1 if violations else 0
 
-        if violations:
-            log("refusing to write an index that skips an app; fix the artifacts above")
+        # A refused artifact is a warning while the suite is still filling up: most apps
+        # have no release yet, and their first one is expected to fail a gate.
+        # A refused artifact is an error once the package was already published — that
+        # is a regression, and it must not quietly remove an app a user already has.
+        regressions = sorted(pkg for pkg in previous if pkg not in packages)
+        if regressions:
+            for pkg in regressions:
+                print(f"::error::index lost {pkg}: it is in the published index but no "
+                      f"release passed the gates")
+            log("refusing to publish an index that drops a published app")
             return 1
 
         Path(args.out).write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
