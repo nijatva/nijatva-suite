@@ -263,11 +263,12 @@ def gate(meta: dict[str, Any], cert: dict[str, str], hits: set[str],
 # ---------------------------------------------------------------------------
 
 
-def iter_releases(repo: str, token: str | None) -> list[dict[str, Any]]:
+def iter_releases(owner: str, repo: str, token: str | None) -> list[dict[str, Any]]:
+    """apps.json stores the repository name only, so the owner is added here."""
     releases: list[dict[str, Any]] = []
     page = 1
     while True:
-        batch = gh_json(f"{API}/repos/{repo}/releases?per_page=100&page={page}", token)
+        batch = gh_json(f"{API}/repos/{owner}/{repo}/releases?per_page=100&page={page}", token)
         if not batch:
             return releases
         releases.extend(batch)
@@ -328,7 +329,8 @@ def package_entry(meta: dict[str, Any], cert: dict[str, str], apk: Path,
     }
 
 
-def app_entry(app: dict[str, Any], pkg: str, newest: dict[str, Any]) -> dict[str, Any]:
+def app_entry(app: dict[str, Any], pkg: str, newest: dict[str, Any],
+              owner: str = "nijatva") -> dict[str, Any]:
     name = app.get("name") or pkg
     summary = app.get("summary") or ""
     return {
@@ -336,8 +338,8 @@ def app_entry(app: dict[str, Any], pkg: str, newest: dict[str, Any]) -> dict[str
         "name": name,
         "summary": summary,
         "license": app.get("license", "Apache-2.0"),
-        "sourceCode": f"https://github.com/nijatva/{app['repo']}" if app.get("repo") else "",
-        "issueTracker": f"https://github.com/nijatva/{app['repo']}/issues" if app.get("repo") else "",
+        "sourceCode": f"https://github.com/{owner}/{app['repo']}" if app.get("repo") else "",
+        "issueTracker": f"https://github.com/{owner}/{app['repo']}/issues" if app.get("repo") else "",
         "categories": app.get("categories", []),
         "suggestedVersionCode": newest["versionCode"],
         "suggestedVersionName": newest["versionName"],
@@ -373,6 +375,8 @@ def all_needles(policy: dict[str, Any]) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Generate the Nijatva index-v1.json")
     ap.add_argument("--apps", required=True, help="path to apps.json (from nijatva-core)")
+    ap.add_argument("--owner", default="nijatva",
+                    help="GitHub organisation that owns the app repositories")
     ap.add_argument("--out", default="index-v1.json")
     ap.add_argument("--policy", default="tools/index-policy.json")
     ap.add_argument("--previous", default=None,
@@ -409,7 +413,7 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             log(f"{repo}")
             try:
-                releases = iter_releases(repo, args.token)
+                releases = iter_releases(args.owner, repo, args.token)
             except urllib.error.HTTPError as e:
                 violations.append(f"{repo}: GitHub returned {e.code}")
                 continue
@@ -469,7 +473,7 @@ def main(argv: list[str] | None = None) -> int:
 
         index = {
             "repo": build_repo_block(args.address, args.name, args.description),
-            "apps": [app_entry(app_meta[pkg], pkg, versions[0])
+            "apps": [app_entry(app_meta[pkg], pkg, versions[0], args.owner)
                      for pkg, versions in sorted(packages.items())],
             "packages": {pkg: versions for pkg, versions in sorted(packages.items())},
         }
