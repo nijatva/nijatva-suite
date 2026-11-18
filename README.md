@@ -2,7 +2,9 @@
 
 **Meta repository**
 
-The app index, release downloads and the self-hosted F-Droid style repository index, served from GitHub Pages.
+The app index and the self-hosted repository index, served from GitHub Pages. APKs stay
+in each app's own GitHub Releases; this repository carries only the JSON that points at
+them.
 
 ## Why this exists first
 
@@ -12,8 +14,14 @@ Part of the [Nijatva](https://nijatva.github.io) suite.
 
 ## Status
 
-Repository created. Implementation follows the app build order in the suite tracker.
+The index generator lives in `tools/generate_index.py` and runs from
+`.github/workflows/index.yml`. What it refuses to index, and the one-time setup, are in
+[INDEX-SETUP.md](INDEX-SETUP.md). [ROADMAP.md](ROADMAP.md) carries the verified status of
+the whole suite and the corrections to earlier claims.
+
+No index is published yet: the first entry waits for a signed release of `nijatva-notes`.
 
 ## Licence
 
-All rights reserved until a licence is added before the first release.
+Apache-2.0 for the code, as in [LICENSE](LICENSE). The name "Nijatva" and the app icons are
+not covered by that licence — a fork must use its own name and its own icon.
