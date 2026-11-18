@@ -27,7 +27,7 @@
         "apkUrl": "https://github.com/nijatva/nijatva-photo-editor/releases/download/v1.5.0/Nijatva-Editor-1.5.0.apk",
         "hash": "bce46bb29315e5b00c01b99c93de6f26880457374a5885d29673b2ea565f401c",
         "hashType": "sha256",
-        "minSdkVersion": 0,
+        "minSdkVersion": 26,
         "nativecode": [
           "arm64-v8a",
           "armeabi-v7a",
@@ -63,7 +63,7 @@
     "description": "Local-first Android apps. No Google Play Services.",
     "maxAge": 0,
     "name": "Nijatva",
-    "timestamp": 1794994088707,
+    "timestamp": 1794994291970,
     "version": 1
   }
 }
