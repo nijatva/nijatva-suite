@@ -1,0 +1,94 @@
+name: index
+
+# Rebuilds index-v1.json from the app repositories' GitHub Releases.
+# Runs on a schedule, on demand, and when an app repository asks for it.
+# Costs nothing: public API, no third-party service, no secrets required.
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [app-release]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: index
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # apps.json stays the single source of truth, in nijatva-core.
+      - uses: actions/checkout@v4
+        with:
+          repository: nijatva/nijatva-core
+          path: core
+          sparse-checkout: tools/apps.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Android build-tools for aapt2 and apksigner
+        run: |
+          SDK="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          "$SDK/cmdline-tools/latest/bin/sdkmanager" \
+            "build-tools;35.0.0" "platform-tools" > /dev/null
+
+      - name: Generate the index
+        env:
+          # Optional. Public repos work without it; set the secret only if the
+          # hourly API limit becomes a problem.
+          SUITE_INDEX_TOKEN: ${{ secrets.SUITE_INDEX_TOKEN }}
+        run: |
+          python3 tools/generate_index.py \
+            --apps core/tools/apps.json \
+            --previous index-v1.json \
+            --policy tools/index-policy.json \
+            --out index-v1.json
+
+      - name: Commit if the index changed
+        run: |
+          git config user.name  "nijatva-index[bot]"
+          git config user.email "noreply@nijatva.github.io"
+          git add index-v1.json
+          if git diff --cached --quiet; then
+            echo "index unchanged"
+            exit 0
+          fi
+          git commit -m "index: rebuild from releases"
+          git push
+
+  # Pull requests only check; they never publish.
+  verify:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: nijatva/nijatva-core
+          path: core
+          sparse-checkout: tools/apps.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Android build-tools
+        run: |
+          SDK="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          "$SDK/cmdline-tools/latest/bin/sdkmanager" "build-tools;35.0.0" > /dev/null
+      - name: Dry run
+        env:
+          SUITE_INDEX_TOKEN: ${{ secrets.SUITE_INDEX_TOKEN }}
+        run: |
+          python3 tools/generate_index.py \
+            --apps core/tools/apps.json \
+            --policy tools/index-policy.json \
+            --dry-run
