@@ -225,7 +225,7 @@ def dex_hits(apk: Path, needles: list[str]) -> set[str]:
 
 def gate(meta: dict[str, Any], cert: dict[str, str], hits: set[str],
          policy: dict[str, Any], app_policy: dict[str, Any],
-         previous: dict[str, Any] | None) -> list[str]:
+         previous: dict[str, Any] | None, digest: str = "") -> list[str]:
     """Return a list of human-readable violations. Empty means it ships."""
     bad: list[str] = []
     pkg = meta["packageName"]
@@ -249,9 +249,16 @@ def gate(meta: dict[str, Any], cert: dict[str, str], hits: set[str],
     if pinned and pinned.lower() != cert["sig"]:
         bad.append(f"signing certificate changed: index pins {pinned}, APK is {cert['sig']}")
 
-    if previous and meta["versionCode"] <= previous["versionCode"]:
-        bad.append(f"versionCode {meta['versionCode']} is not above the published "
-                   f"{previous['versionCode']}")
+    if previous:
+        published = previous["versionCode"]
+        if meta["versionCode"] < published:
+            bad.append(f"versionCode {meta['versionCode']} is below the published "
+                       f"{published} — that is a downgrade")
+        elif meta["versionCode"] == published and digest != previous.get("hash"):
+            # Re-reading the same release must be a no-op. Different bytes under the
+            # same version is an artifact swap, not an update.
+            bad.append(f"versionCode {published} was already published with different "
+                       f"bytes; bump the version")
 
     if bad:
         log(f"  ✗ {pkg} {meta['versionName']} ({meta['versionCode']})")
@@ -449,7 +456,7 @@ def main(argv: list[str] | None = None) -> int:
                 app_policy = policy.get("apps", {}).get(meta["packageName"], {})
                 hits = dex_hits(local, needles)
                 prev = (previous.get(meta["packageName"]) or [None])[0]
-                bad = gate(meta, cert, hits, policy, app_policy, prev)
+                bad = gate(meta, cert, hits, policy, app_policy, prev, digest)
                 if bad:
                     violations.extend(f"{meta['packageName']} {tag}: {b}" for b in bad)
                     continue

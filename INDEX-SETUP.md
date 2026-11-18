@@ -15,7 +15,9 @@ An artifact is refused if it:
 - declares `MANAGE_EXTERNAL_STORAGE` or `com.android.vending.BILLING`
 - targets below **SDK 34**
 - has a signing certificate that differs from the one recorded for that app
-- carries a `versionCode` that is not above the published one
+- carries a `versionCode` below the published one, or the same `versionCode` with
+  different bytes (a downgrade, or an artifact swapped under a version that is
+  already out)
 
 A refusal is a warning: the index is written with everything that passed. That
 keeps the suite usable while apps are still filling up — most have no release yet,
