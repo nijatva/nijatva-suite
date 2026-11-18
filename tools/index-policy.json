@@ -1,0 +1,9 @@
+{
+  "minTargetSdk": 34,
+
+  "extraBannedDex": {
+  },
+
+  "apps": {
+  }
+}
