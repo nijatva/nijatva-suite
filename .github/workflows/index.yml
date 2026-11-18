@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [app-release]
+  pull_request:
 
 permissions:
   contents: write
@@ -20,6 +21,8 @@ concurrency:
 
 jobs:
   build:
+    # Pull requests only check; they never publish.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
