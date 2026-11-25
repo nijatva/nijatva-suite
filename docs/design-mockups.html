@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nijatva — Four screens from the references</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f2efe9;
+    --paper-2:#e9e5dd;
+    --ink:#15161a;
+    --ink-dim:#5f6066;
+    --rule:#d6d1c7;
+    --terra:#c2664b;
+    --haldi:#e0a32e;
+    --indigo:#3d5a98;
+    --ok:#4c8c4a;
+    --warn:#c98a28;
+    --danger:#c0473f;
+
+    /* phone tokens */
+    --bg:#000000;
+    --surface:#0a0a0a;
+    --surface-alt:#111111;
+    --border:#1e1e1e;
+    --text:#f2f2f2;
+    --text-muted:#9a9a9a;
+
+    --font-display:"Instrument Serif",Georgia,serif;
+    --font-body:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-mono:"Fira Code",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:
+      radial-gradient(1100px 500px at 12% -10%, rgba(194,102,75,.10), transparent 70%),
+      radial-gradient(900px 420px at 92% 0%, rgba(61,90,152,.09), transparent 68%),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-weight:400;
+    line-height:1.55;
+    padding:56px 24px 88px;
+  }
+  .wrap{max-width:1280px;margin:0 auto}
+  .eyebrow{
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-dim);display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--terra)}
+  h1{
+    font-family:var(--font-display);font-weight:400;font-size:clamp(34px,5vw,58px);
+    line-height:1.04;letter-spacing:-.015em;max-width:19ch;
+  }
+  h1 em{font-style:italic;color:var(--terra)}
+  .lead{
+    margin-top:18px;max-width:64ch;font-size:16.5px;color:#2c2d33;
+  }
+  .lead strong{font-weight:500}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .pill{
+    font-family:var(--font-mono);font-size:11px;padding:5px 10px;border:1px solid var(--rule);
+    border-radius:999px;color:var(--ink-dim);background:rgba(255,255,255,.45);
+  }
+  .pill b{color:var(--ink);font-weight:500}
+
+  /* ---------- phone rail ---------- */
+  .rail{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;
+    margin-top:46px;align-items:start;
+  }
+  @media (max-width:1120px){.rail{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:620px){.rail{grid-template-columns:minmax(0,1fr);gap:34px}}
+
+  .phone-col{min-width:0}
+  .phone-tag{
+    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-dim);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+  }
+  .phone-tag span.dot{width:6px;height:6px;border-radius:50%;background:var(--terra)}
+  .phone-tag.b span.dot{background:var(--haldi)}
+  .phone-tag.c span.dot{background:var(--indigo)}
+  .phone-tag.d span.dot{background:var(--ok)}
+
+  .phone{
+    background:#111214;border-radius:34px;padding:9px;
+    box-shadow:0 22px 40px -22px rgba(20,18,14,.55), 0 2px 0 rgba(255,255,255,.5) inset;
+  }
+  .screen{
+    background:var(--bg);border-radius:27px;overflow:hidden;color:var(--text);
+    font-size:11.5px;line-height:1.4;position:relative;
+    aspect-ratio:9/19.2;
+  }
+  .status{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:9px 14px 2px;font-family:var(--font-mono);font-size:9px;color:#8b8b8b;
+  }
+  .status .icons{display:flex;gap:5px;align-items:center}
+  .bar{width:12px;height:6px;border:1px solid #6b6b6b;border-radius:2px;position:relative}
+  .bar::after{content:"";position:absolute;inset:1px;background:#8b8b8b;border-radius:1px}
+
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px 6px;
+  }
+  .glyph{
+    width:22px;height:22px;border:1px solid #2b2b2b;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:#bdbdbd;font-size:11px;
+  }
+  .topbar .title{font-size:12px;font-weight:500;color:var(--text);letter-spacing:.01em}
+  .chip{
+    font-size:9px;padding:3px 7px;border-radius:999px;border:1px solid #262626;color:#9a9a9a;
+    font-family:var(--font-mono);
+  }
+
+  .body{padding:6px 14px 0;display:flex;flex-direction:column;gap:10px}
+  .hairline{height:1px;background:var(--border);margin:2px 0}
+
+  /* app detail */
+  .app-head{display:flex;gap:11px;align-items:center;padding-top:4px}
+  .app-icon{
+    width:52px;height:52px;border-radius:13px;flex:0 0 auto;
+    background:linear-gradient(150deg,#2a2019,#0f0d0b);border:1px solid #33291f;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-size:26px;color:var(--terra);
+  }
+  .app-name{font-size:14px;font-weight:500;letter-spacing:-.01em}
+  .app-sub{font-family:var(--font-mono);font-size:9px;color:#8a8a8a;margin-top:2px;word-break:break-all}
+
+  .btn-primary{
+    margin-top:4px;background:var(--terra);color:#fff;border-radius:11px;
+    text-align:center;padding:10px;font-size:12px;font-weight:500;letter-spacing:.01em;
+  }
+  .btn-quiet{
+    border:1px solid #2b2b2b;border-radius:11px;text-align:center;padding:9px;
+    font-size:11px;color:#d0d0d0;
+  }
+
+  .triple{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:11px;overflow:hidden}
+  .triple div{padding:8px 9px;border-right:1px solid var(--border)}
+  .triple div:last-child{border-right:0}
+  .triple .k{font-size:8.5px;color:#8a8a8a;font-family:var(--font-mono);letter-spacing:.04em}
+  .triple .v{font-size:11px;margin-top:2px;color:#eaeaea}
+
+  .section-head{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:11px;color:#dcdcdc;padding:2px 0;
+  }
+  .section-head .chev{color:#6f6f6f;font-size:10px}
+  .badge{
+    display:inline-flex;align-items:center;gap:5px;font-size:9px;
+    font-family:var(--font-mono);padding:3px 7px;border-radius:6px;
+  }
+  .badge.ok{background:rgba(76,140,74,.14);color:#8dc48b;border:1px solid rgba(76,140,74,.3)}
+  .badge.warn{background:rgba(201,138,40,.13);color:#dfae5c;border:1px solid rgba(201,138,40,.3)}
+  .badge.neutral{background:#141414;color:#9a9a9a;border:1px solid var(--border)}
+  .badge-row{display:flex;flex-wrap:wrap;gap:5px}
+  .fine{font-family:var(--font-mono);font-size:8.5px;color:#7d7d7d;line-height:1.6;word-break:break-all}
+  .fine b{color:#b9b9b9;font-weight:500}
+
+  .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+  .thumb{aspect-ratio:9/16;border-radius:6px;border:1px solid #232323;background:linear-gradient(160deg,#151515,#0a0a0a)}
+
+  /* tabs + updates */
+  .tabs{display:flex;gap:14px;padding:8px 14px 0;font-size:10.5px;color:#7d7d7d;border-bottom:1px solid var(--border)}
+  .tabs .on{color:var(--text);position:relative;padding-bottom:7px}
+  .tabs .on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--terra);border-radius:2px}
+  .tabs .t{padding-bottom:7px}
+  .upd-head{display:flex;align-items:center;justify-content:space-between;padding:9px 14px 2px}
+  .upd-head .n{font-size:11px;color:#c9c9c9}
+  .upd-head .all{font-size:9.5px;color:var(--terra);border:1px solid rgba(194,102,75,.35);border-radius:999px;padding:3px 8px}
+  .row{display:flex;gap:9px;align-items:center;padding:8px 0}
+  .row .ico{width:30px;height:30px;border-radius:9px;flex:0 0 auto;background:#151515;border:1px solid #232323;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;color:#b9b9b9}
+  .row .nm{font-size:11px;color:#eaeaea;line-height:1.25}
+  .row .vs{font-family:var(--font-mono);font-size:8.5px;color:#7f7f7f;margin-top:2px}
+  .row .go{margin-left:auto;font-size:9px;color:var(--terra);border:1px solid rgba(194,102,75,.35);border-radius:999px;padding:3px 8px;flex:0 0 auto}
+  .progress{border:1px solid var(--border);border-radius:9px;padding:8px;background:#0d0d0d}
+  .progress .track{height:3px;border-radius:3px;background:#1e1e1e;overflow:hidden;margin-bottom:6px}
+  .progress .fill{height:100%;width:64%;background:var(--terra)}
+  .steps{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:7.5px;color:#6f6f6f;gap:2px}
+  .steps .now{color:#dcdcdc}
+
+  /* launcher */
+  .search{
+    margin:0 14px;border:1px solid #262626;border-radius:999px;padding:7px 11px;
+    display:flex;gap:7px;align-items:center;color:#7a7a7a;font-size:10.5px;background:#0b0b0b;
+  }
+  .grid5{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 4px;padding:14px 12px 0}
+  .app-tile{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+  .circle{
+    width:38px;height:38px;border-radius:50%;background:#f0f0f0;color:#0a0a0a;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono);font-size:12px;font-weight:500;
+  }
+  .circle.out{background:transparent;border:1.2px solid #4a4a4a;color:#c9c9c9}
+  .app-tile .lb{font-size:8px;color:#a8a8a8;text-align:center;line-height:1.15;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .launcher-foot{
+    position:absolute;left:0;right:0;bottom:0;padding:10px 16px 14px;
+    display:flex;align-items:center;justify-content:space-between;
+    background:linear-gradient(to top,#000 40%,rgba(0,0,0,0));
+  }
+  .fab{width:34px;height:34px;border-radius:50%;background:#f0f0f0;color:#0a0a0a;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .fab.ghost{background:transparent;border:1px solid #3a3a3a;color:#cfcfcf}
+
+  /* manager */
+  .metric{border:1px solid var(--border);border-radius:12px;padding:11px;background:linear-gradient(160deg,#101010,#070707)}
+  .metric .big{font-family:var(--font-body);font-size:26px;font-weight:300;letter-spacing:-.02em;line-height:1.1}
+  .metric .big span{font-size:12px;color:#9a9a9a;font-weight:400;margin-left:4px}
+  .metric .sub{font-family:var(--font-mono);font-size:8.5px;color:#8a8a8a;margin-top:3px}
+  .barlist{display:flex;flex-direction:column;gap:6px}
+  .barlist .bl{display:grid;grid-template-columns:62px 1fr 40px;gap:6px;align-items:center;font-size:9px;color:#c9c9c9}
+  .barlist .barwrap{height:5px;border-radius:3px;background:#171717;overflow:hidden}
+  .barlist .barfill{height:100%;background:linear-gradient(90deg,#5a4235,#c2664b);border-radius:3px}
+  .barlist .val{font-family:var(--font-mono);font-size:8px;color:#8a8a8a;text-align:right}
+  .donut-wrap{display:flex;align-items:center;gap:11px}
+  .donut{
+    width:66px;height:66px;border-radius:50%;flex:0 0 auto;position:relative;
+    background:conic-gradient(var(--ok) 0 74%, var(--warn) 74% 91%, var(--danger) 91% 100%);
+  }
+  .donut::after{content:"";position:absolute;inset:9px;border-radius:50%;background:#000}
+  .donut .c{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#eaeaea;z-index:2}
+  .legend{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:8px;color:#9a9a9a}
+  .legend i{width:6px;height:6px;border-radius:2px;display:inline-block;margin-right:5px}
+  .chips{display:flex;flex-wrap:wrap;gap:5px}
+  .chips .c1{font-size:8.5px;padding:3px 7px;border-radius:999px;background:#141414;border:1px solid var(--border);color:#a8a8a8;font-family:var(--font-mono)}
+
+  .caption{
+    font-size:12.5px;color:var(--ink-dim);margin-top:14px;line-height:1.5;
+  }
+  .caption b{color:var(--ink);font-weight:500}
+
+  /* sections below */
+  .block{margin-top:74px}
+  .block-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:24px}
+  .block-head h2{font-family:var(--font-display);font-weight:400;font-size:27px;letter-spacing:-.01em}
+  .block-head .idx{font-family:var(--font-mono);font-size:11px;color:var(--terra)}
+
+  .tokens{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:12px}
+  .tok{border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.5)}
+  .tok .sw{height:44px}
+  .tok .lab{padding:7px 9px;font-family:var(--font-mono);font-size:9.5px;color:var(--ink-dim)}
+  .tok .lab b{display:block;color:var(--ink);font-weight:500;font-size:10px}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:rgba(255,255,255,.42);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+  thead th{
+    text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-dim);padding:11px 13px;border-bottom:1px solid var(--rule);background:rgba(0,0,0,.03);font-weight:400;
+  }
+  tbody td{padding:11px 13px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top;color:#2c2d33}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:nth-child(even){background:rgba(0,0,0,.018)}
+  code{font-family:var(--font-mono);font-size:11.5px;background:rgba(194,102,75,.09);padding:1px 5px;border-radius:4px;color:#8a3f2b}
+  .flag{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;white-space:nowrap}
+  .flag.built{background:rgba(76,140,74,.13);color:#3c7a3a}
+  .flag.changed{background:rgba(201,138,40,.15);color:#8a5f14}
+  .flag.off{background:rgba(192,71,63,.12);color:#93362f}
+
+  footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+
+  @media (prefers-reduced-motion:no-preference){
+    .phone-col{animation:fadeUp .6s ease both}
+    .phone-col:nth-child(2){animation-delay:.07s}
+    .phone-col:nth-child(3){animation-delay:.14s}
+    .phone-col:nth-child(4){animation-delay:.21s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Nijatva · Design system v2 · 24 Nov 2026</div>
+  <h1>Four screens, built from <em>your</em> references</h1>
+  <p class="lead">
+    Same components, same tokens, drawn twice: once for the App Store and Launcher (Compose), once for
+    the Java apps that cannot use Compose. Everything below is <strong>buildable by a normal app</strong> —
+    no OS-level features dressed up as ours.
+  </p>
+  <div class="meta-row">
+    <span class="pill">AMOLED <b>#000000</b></span>
+    <span class="pill">Accent <b>terracotta #C2664B</b></span>
+    <span class="pill">Highlight <b>haldi #E0A32E</b></span>
+    <span class="pill">Info <b>indigo #3D5A98</b></span>
+    <span class="pill">Data <b>index-v1.json · 1 app</b></span>
+  </div>
+
+  <div class="rail">
+
+    <!-- A: STORE APP DETAIL -->
+    <div class="phone-col">
+      <div class="phone-tag"><span class="dot"></span>Store · app detail</div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>9:41</span><span class="icons"><span>LTE</span><span class="bar"></span></span></div>
+        <div class="topbar">
+          <div class="glyph">←</div>
+          <div class="title">Application</div>
+          <div class="glyph">↗</div>
+        </div>
+        <div class="body">
+          <div class="app-head">
+            <div class="app-icon">N</div>
+            <div style="min-width:0">
+              <div class="app-name">Nijatva Photo Editor</div>
+              <div class="app-sub">com.nijatva.photo.editor · 1.6.0</div>
+            </div>
+          </div>
+          <div class="btn-primary">Update · 6.5 MB</div>
+
+          <div class="triple">
+            <div><div class="k">VERSION</div><div class="v">1.6.0</div></div>
+            <div><div class="k">SIZE</div><div class="v">6.5 MB</div></div>
+            <div><div class="k">MINSDK</div><div class="v">26</div></div>
+          </div>
+
+          <div class="section-head"><span>Privacy report</span><span class="chev">▾</span></div>
+          <div class="badge-row">
+            <span class="badge ok">0 banned groups</span>
+            <span class="badge ok">no INTERNET</span>
+            <span class="badge neutral">built by no-gms-check</span>
+          </div>
+
+          <div class="hairline"></div>
+          <div class="section-head"><span>Permissions · 3</span><span class="chev">▸</span></div>
+          <div class="section-head"><span>Screenshots · 3</span><span class="chev">▾</span></div>
+          <div class="thumbs"><div class="thumb"></div><div class="thumb"></div><div class="thumb"></div></div>
+
+          <div class="hairline"></div>
+          <div class="fine">
+            sha256 <b>bce46bb2…f401c</b><br>
+            signer <b>CN=Vasudev Dangaya, C=IN</b>
+          </div>
+          <div class="fine" style="color:#5f5f5f">Android will ask you to confirm the install.</div>
+        </div>
+      </div></div>
+      <p class="caption"><b>Reference 11 + 12.</b> Droid-ify's layout, our facts. No rating, no download count — we have no server to count them. The sha256 and signer are shown, not logged.</p>
+    </div>
+
+    <!-- B: STORE UPDATES -->
+    <div class="phone-col">
+      <div class="phone-tag b"><span class="dot"></span>Store · updates</div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>9:41</span><span class="icons"><span>LTE</span><span class="bar"></span></span></div>
+        <div class="topbar">
+          <div class="glyph">←</div>
+          <div class="title">Nijatva Store</div>
+          <div class="glyph">⌕</div>
+        </div>
+        <div class="tabs"><span class="t">Explore</span><span class="t">Installed</span><span class="on">Updates</span></div>
+        <div class="upd-head"><span class="n">3 updates</span><span class="all">Update all</span></div>
+        <div class="body" style="padding-top:0">
+          <div>
+            <div class="row">
+              <div class="ico">PE</div>
+              <div style="min-width:0"><div class="nm">Photo Editor</div><div class="vs">1.5.0 → 1.6.0</div></div>
+              <span class="go">Update</span>
+            </div>
+            <div class="progress">
+              <div class="track"><div class="fill"></div></div>
+              <div class="steps">
+                <span class="now">Downloading</span><span>sha256</span><span>signer</span><span>installer</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="ico">GA</div>
+            <div style="min-width:0"><div class="nm">Gallery</div><div class="vs">0.1.3-debug → blocked</div></div>
+            <span class="go" style="color:#8a5f14;border-color:rgba(201,138,40,.35)">Debug</span>
+          </div>
+          <div class="row">
+            <div class="ico">CA</div>
+            <div style="min-width:0"><div class="nm">Camera</div><div class="vs">0.4.10-debug → blocked</div></div>
+            <span class="go" style="color:#8a5f14;border-color:rgba(201,138,40,.35)">Debug</span>
+          </div>
+          <div class="hairline"></div>
+          <div class="fine" style="color:#7d7d7d">
+            The index refuses debug-signed builds and tags named <b>latest</b>.
+            10 of 11 released apps are currently blocked by that rule.
+          </div>
+        </div>
+      </div></div>
+      <p class="caption"><b>Reference 4 + 9 + 17.</b> "Update all" is fine; "Top charts" is not. The verify step is named, because that is the product.</p>
+    </div>
+
+    <!-- C: LAUNCHER DRAWER -->
+    <div class="phone-col">
+      <div class="phone-tag c"><span class="dot"></span>Launcher · drawer</div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>9:41</span><span class="icons"><span>LTE</span><span class="bar"></span></span></div>
+        <div class="topbar">
+          <div class="title" style="font-size:13px">Apps</div>
+          <div class="chip">A–Z</div>
+        </div>
+        <div class="search"><span>⌕</span><span>Search apps…</span></div>
+        <div class="grid5">
+          <div class="app-tile"><div class="circle">Ca</div><div class="lb">Calculator</div></div>
+          <div class="app-tile"><div class="circle">Cm</div><div class="lb">Camera</div></div>
+          <div class="app-tile"><div class="circle">Co</div><div class="lb">Contacts</div></div>
+          <div class="app-tile"><div class="circle">Fi</div><div class="lb">Files</div></div>
+          <div class="app-tile"><div class="circle">Ga</div><div class="lb">Gallery</div></div>
+          <div class="app-tile"><div class="circle">Me</div><div class="lb">Messages</div></div>
+          <div class="app-tile"><div class="circle">No</div><div class="lb">Notes</div></div>
+          <div class="app-tile"><div class="circle">Ph</div><div class="lb">Phone</div></div>
+          <div class="app-tile"><div class="circle">Cl</div><div class="lb">Clock</div></div>
+          <div class="app-tile"><div class="circle">Pd</div><div class="lb">PDF</div></div>
+          <div class="app-tile"><div class="circle">Se</div><div class="lb">Settings</div></div>
+          <div class="app-tile"><div class="circle">St</div><div class="lb">Store</div></div>
+        </div>
+        <div class="launcher-foot">
+          <div class="fab ghost">⌕</div>
+          <div class="fab">⌂</div>
+          <div class="fab ghost">⚙</div>
+        </div>
+      </div></div>
+      <p class="caption"><b>Reference 2 + 16 + 22.</b> Two icon styles: circular monochrome (shown) and full colour. Letters here are placeholders for the 30 generated SVGs.</p>
+    </div>
+
+    <!-- D: APP MANAGER -->
+    <div class="phone-col">
+      <div class="phone-tag d"><span class="dot"></span>App Manager · dashboard</div>
+      <div class="phone"><div class="screen">
+        <div class="status"><span>9:41</span><span class="icons"><span>LTE</span><span class="bar"></span></span></div>
+        <div class="topbar">
+          <div class="title">App Manager</div>
+          <div class="glyph">⌕</div>
+        </div>
+        <div class="body">
+          <div class="metric">
+            <div class="big">272<span>apps</span></div>
+            <div class="sub">243 user · 29 system</div>
+          </div>
+
+          <div class="section-head"><span>Large apps</span><span class="chev">▸</span></div>
+          <div class="barlist">
+            <div class="bl"><span>Chrome</span><span class="barwrap"><span class="barfill" style="width:100%"></span></span><span class="val">714M</span></div>
+            <div class="bl"><span>WhatsApp</span><span class="barwrap"><span class="barfill" style="width:51%"></span></span><span class="val">361M</span></div>
+            <div class="bl"><span>Instagram</span><span class="barwrap"><span class="barfill" style="width:49%"></span></span><span class="val">353M</span></div>
+            <div class="bl"><span>Sheets</span><span class="barwrap"><span class="barfill" style="width:45%"></span></span><span class="val">322M</span></div>
+          </div>
+
+          <div class="hairline"></div>
+          <div class="section-head"><span>Permissions</span><span class="chev">▸</span></div>
+          <div class="donut-wrap">
+            <div class="donut"><div class="c">272</div></div>
+            <div class="legend">
+              <span><i style="background:var(--ok)"></i>Low · 240</span>
+              <span><i style="background:var(--warn)"></i>Medium · 24</span>
+              <span><i style="background:var(--danger)"></i>High · 8</span>
+            </div>
+          </div>
+          <div class="fine" style="color:#6f6f6f">Risk = requested permissions, not observed use.</div>
+
+          <div class="hairline"></div>
+          <div class="chips">
+            <span class="c1">Tools (24)</span><span class="c1">Communication (10)</span>
+            <span class="c1">Finance (4)</span><span class="c1">Health (3)</span>
+          </div>
+          <div class="fine" style="color:#5f5f5f">Screen time off by default — needs usage-access.</div>
+        </div>
+      </div></div>
+      <p class="caption"><b>Reference 14.</b> Counts, sizes and risk buckets are real. Usage charts stay off until the user grants usage access, and the label says so.</p>
+    </div>
+
+  </div>
+
+  <!-- TOKENS -->
+  <div class="block">
+    <div class="block-head"><span class="idx">01</span><h2>The palette these four screens use</h2></div>
+    <div class="tokens">
+      <div class="tok"><div class="sw" style="background:#000000"></div><div class="lab"><b>bg</b>#000000 · AMOLED</div></div>
+      <div class="tok"><div class="sw" style="background:#0a0a0a"></div><div class="lab"><b>surface</b>#0A0A0A</div></div>
+      <div class="tok"><div class="sw" style="background:#1e1e1e"></div><div class="lab"><b>border</b>#1E1E1E · 1dp</div></div>
+      <div class="tok"><div class="sw" style="background:#f2f2f2"></div><div class="lab"><b>text</b>#F2F2F2</div></div>
+      <div class="tok"><div class="sw" style="background:#c2664b"></div><div class="lab"><b>accent</b>terracotta</div></div>
+      <div class="tok"><div class="sw" style="background:#e0a32e"></div><div class="lab"><b>accentAlt</b>haldi</div></div>
+      <div class="tok"><div class="sw" style="background:#3d5a98"></div><div class="lab"><b>accentDeep</b>indigo</div></div>
+      <div class="tok"><div class="sw" style="background:#4c8c4a"></div><div class="lab"><b>ok</b>#4C8C4A</div></div>
+      <div class="tok"><div class="sw" style="background:#c98a28"></div><div class="lab"><b>warn</b>#C98A28</div></div>
+      <div class="tok"><div class="sw" style="background:#c0473f"></div><div class="lab"><b>danger</b>#C0473F</div></div>
+    </div>
+  </div>
+
+  <!-- CHANGES -->
+  <div class="block">
+    <div class="block-head"><span class="idx">02</span><h2>What changed from the reference, and why</h2></div>
+    <table>
+      <thead>
+        <tr><th style="width:22%">Reference</th><th style="width:14%">Verdict</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Droid-ify app detail</td>
+          <td><span class="flag built">Built</span></td>
+          <td>Layout kept. Rating, reviews and download count removed — they need a server that logs users. Replaced with facts we can prove offline: sha256, signer fingerprint, minSdk, permissions.</td>
+        </tr>
+        <tr>
+          <td>Exodus privacy score <code>3/10</code></td>
+          <td><span class="flag changed">Rewritten</span></td>
+          <td>No third-party score. <code>no-gms-check</code> writes the report at build time — banned groups found, INTERNET yes/no, dependency count — and the index carries it. Same idea, verifiable source.</td>
+        </tr>
+        <tr>
+          <td>F-Droid 5-tab bottom bar</td>
+          <td><span class="flag changed">Trimmed</span></td>
+          <td>Three tabs: Explore · Installed · Updates. "Nearby" waits for the Wi-Fi Direct transfer feature, which does not exist yet.</td>
+        </tr>
+        <tr>
+          <td>Updates list with debug builds</td>
+          <td><span class="flag changed">Gated</span></td>
+          <td>Debug-signed APKs and <code>latest</code> tags are refused by the index, so the row says <b>Debug</b> and offers nothing. That is the honest state of 10 of 11 released apps today.</td>
+        </tr>
+        <tr>
+          <td>Neo Store vertical category lettering</td>
+          <td><span class="flag off">Dropped</span></td>
+          <td>Vertical text breaks at 200% font scale and in RTL. Normal sticky header instead.</td>
+        </tr>
+        <tr>
+          <td>Privacy dashboard, 24-hour access log</td>
+          <td><span class="flag off">Not built</span></td>
+          <td>Per-app camera/mic history is OS data. Nijatva shows <i>requested</i> permissions and labels them as such — see the risk donut.</td>
+        </tr>
+        <tr>
+          <td>Nothing-style gradient Spaces cards</td>
+          <td><span class="flag changed">Scoped</span></td>
+          <td><code>HeroCard</code> gradients allowed only in Launcher, WorkSpace and the store banner. Utility apps stay flat on AMOLED.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <span>Nijatva · DESIGN-SYSTEM.md v2 · screens rendered from tokens</span>
+    <span>Built in India · no accounts, no ads, no analytics</span>
+  </footer>
+
+</div>
+</body>
+</html>
