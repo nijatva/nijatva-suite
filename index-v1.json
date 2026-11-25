@@ -104,36 +104,6 @@
         ],
         "versionCode": 4,
         "versionName": "1.3"
-      },
-      {
-        "added": 1794885849,
-        "apkName": "com.nijatva.contacts_1.apk",
-        "apkUrl": "https://github.com/nijatva/nijatva-contacts/releases/download/v1.0/Nijatva_Contacts_v1.0.apk",
-        "hash": "a848277781ff4b9626e523c84712717fd2f0710bb7c8561f87f4951bd5a8df45",
-        "hashType": "sha256",
-        "minSdkVersion": 21,
-        "nativecode": [],
-        "packageName": "com.nijatva.contacts",
-        "sig": "728f28ac5f8766cbf804cb05eaf95a98e858883f784ba85c90a16217e98620d9",
-        "signer": "CN=MyDialer, OU=Vasudev, O=Vasudev, L=India, ST=India, C=IN",
-        "size": 37365,
-        "targetSdkVersion": 34,
-        "uses-permission": [
-          {
-            "name": "android.permission.INTERNET"
-          },
-          {
-            "name": "android.permission.READ_CONTACTS"
-          },
-          {
-            "name": "android.permission.WRITE_CONTACTS"
-          },
-          {
-            "name": "android.permission.GET_ACCOUNTS"
-          }
-        ],
-        "versionCode": 1,
-        "versionName": "1.0"
       }
     ],
     "com.nijatva.dialer": [
@@ -211,81 +181,6 @@
         ],
         "versionCode": 7,
         "versionName": "1.6"
-      },
-      {
-        "added": 1794885230,
-        "apkName": "com.nijatva.dialer_4.apk",
-        "apkUrl": "https://github.com/nijatva/nijatva-dialer/releases/download/v1.3/Nijatva_Dialer_v1.3.apk",
-        "hash": "115682c86f70ce1013a75b0d63583d144adbc5022260379afbfe23b8412a746b",
-        "hashType": "sha256",
-        "minSdkVersion": 21,
-        "nativecode": [],
-        "packageName": "com.nijatva.dialer",
-        "sig": "728f28ac5f8766cbf804cb05eaf95a98e858883f784ba85c90a16217e98620d9",
-        "signer": "CN=MyDialer, OU=Vasudev, O=Vasudev, L=India, ST=India, C=IN",
-        "size": 333004,
-        "targetSdkVersion": 34,
-        "uses-permission": [
-          {
-            "name": "android.permission.CALL_PHONE"
-          },
-          {
-            "name": "android.permission.WRITE_CALL_LOG"
-          },
-          {
-            "name": "android.permission.READ_CALL_LOG"
-          },
-          {
-            "name": "android.permission.READ_CONTACTS"
-          },
-          {
-            "name": "android.permission.READ_EXTERNAL_STORAGE"
-          },
-          {
-            "name": "android.permission.READ_MEDIA_AUDIO"
-          },
-          {
-            "name": "android.permission.READ_PHONE_STATE"
-          },
-          {
-            "name": "android.permission.MODIFY_AUDIO_SETTINGS"
-          },
-          {
-            "name": "android.permission.READ_PROFILE"
-          },
-          {
-            "name": "android.permission.WRITE_CONTACTS"
-          },
-          {
-            "name": "android.permission.POST_NOTIFICATIONS"
-          },
-          {
-            "name": "android.permission.SEND_SMS"
-          },
-          {
-            "name": "android.permission.READ_SMS"
-          },
-          {
-            "name": "android.permission.RECEIVE_SMS"
-          },
-          {
-            "name": "android.permission.RECEIVE_MMS"
-          },
-          {
-            "name": "android.permission.WRITE_SMS"
-          },
-          {
-            "name": "android.permission.SYSTEM_ALERT_WINDOW"
-          },
-          {
-            "name": "android.permission.FOREGROUND_SERVICE"
-          },
-          {
-            "name": "android.permission.FOREGROUND_SERVICE_PHONE_CALL"
-          }
-        ],
-        "versionCode": 4,
-        "versionName": "1.3"
       }
     ],
     "com.nijatva.messages": [
@@ -327,45 +222,6 @@
         ],
         "versionCode": 4,
         "versionName": "1.3"
-      },
-      {
-        "added": 1794886923,
-        "apkName": "com.nijatva.messages_1.apk",
-        "apkUrl": "https://github.com/nijatva/nijatva-messages/releases/download/v1.0/Nijatva_Messages_v1.0.apk",
-        "hash": "e717f35bca611c6a9f84de2655be3a99c18b0873d43878f6b08bdc1f929d43e9",
-        "hashType": "sha256",
-        "minSdkVersion": 21,
-        "nativecode": [],
-        "packageName": "com.nijatva.messages",
-        "sig": "728f28ac5f8766cbf804cb05eaf95a98e858883f784ba85c90a16217e98620d9",
-        "signer": "CN=MyDialer, OU=Vasudev, O=Vasudev, L=India, ST=India, C=IN",
-        "size": 25077,
-        "targetSdkVersion": 34,
-        "uses-permission": [
-          {
-            "name": "android.permission.READ_SMS"
-          },
-          {
-            "name": "android.permission.SEND_SMS"
-          },
-          {
-            "name": "android.permission.RECEIVE_SMS"
-          },
-          {
-            "name": "android.permission.WRITE_SMS"
-          },
-          {
-            "name": "android.permission.RECEIVE_MMS"
-          },
-          {
-            "name": "android.permission.READ_CONTACTS"
-          },
-          {
-            "name": "android.permission.POST_NOTIFICATIONS"
-          }
-        ],
-        "versionCode": 1,
-        "versionName": "1.0"
       }
     ],
     "com.nijatva.photo.editor": [
@@ -403,41 +259,6 @@
         ],
         "versionCode": 7,
         "versionName": "1.6.0"
-      },
-      {
-        "added": 1794932118,
-        "apkName": "com.nijatva.photo.editor_6.apk",
-        "apkUrl": "https://github.com/nijatva/nijatva-photo-editor/releases/download/v1.5.0/Nijatva-Editor-1.5.0.apk",
-        "hash": "bce46bb29315e5b00c01b99c93de6f26880457374a5885d29673b2ea565f401c",
-        "hashType": "sha256",
-        "minSdkVersion": 26,
-        "nativecode": [
-          "arm64-v8a",
-          "armeabi-v7a",
-          "x86",
-          "x86_64"
-        ],
-        "packageName": "com.nijatva.photo.editor",
-        "sig": "32ef7fb704c1ad0666a0177dd69d81167797963d45297e1b06523bedf1d5927d",
-        "signer": "CN=Vasudev Dangaya, O=Nijatva Photo Editor, C=IN",
-        "size": 6518450,
-        "targetSdkVersion": 35,
-        "uses-permission": [
-          {
-            "name": "android.permission.READ_MEDIA_IMAGES"
-          },
-          {
-            "name": "android.permission.READ_EXTERNAL_STORAGE"
-          },
-          {
-            "name": "android.permission.WRITE_EXTERNAL_STORAGE"
-          },
-          {
-            "name": "com.nijatva.photo.editor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-          }
-        ],
-        "versionCode": 6,
-        "versionName": "1.5.0"
       }
     ]
   },
@@ -446,7 +267,7 @@
     "description": "Local-first Android apps. No Google Play Services.",
     "maxAge": 0,
     "name": "Nijatva",
-    "timestamp": 1795604311042,
+    "timestamp": 1795612248497,
     "version": 1
   }
 }
