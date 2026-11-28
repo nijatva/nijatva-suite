@@ -2,8 +2,16 @@
   "minTargetSdk": 34,
 
   "extraBannedDex": {
+    "com/google/firebase": "Firebase",
+    "com/google/android/gms": "Google Play Services",
+    "com/google/android/play": "Play Core",
+    "com/google/android/ads": "Mobile Ads",
+    "com/google/android/tagmanager": "Tag Manager",
+    "com/crashlytics": "Crashlytics",
+    "com/google/ads/mediation": "Ads mediation",
+    "com/amplitude": "Amplitude",
+    "com/facebook/ads": "Facebook Ads"
   },
 
-  "apps": {
-  }
+  "apps": {}
 }
